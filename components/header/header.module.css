@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 16px;
+    background-color: aliceblue;
+}
+
+.linkHeader {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

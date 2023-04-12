@@ -1,0 +1,8 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputAlignment {
+    padding: 14px 0;
+}
