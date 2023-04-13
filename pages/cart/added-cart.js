@@ -1,5 +1,9 @@
 const AddedCart = (props) => {
 
+    const total = props.items.map(item => item.price * item.quantity).reduce(
+        (accumulator, currentValue) => accumulator + currentValue
+    );
+
     return (
         <div>
             <h2>Cart Added</h2>
@@ -13,6 +17,7 @@ const AddedCart = (props) => {
                     <button onClick={() => props.remove(item.name)}>Remove</button>
                 </div>
             ))}
+            <button>Total : Nu.{total}</button>
         </div>
     )
 }

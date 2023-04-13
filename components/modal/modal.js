@@ -75,17 +75,6 @@ const PopUpModal = (props) => {
                                        </div>
                                    )}
                             />
-                            {/*<Field name='quantity' defaultValue=""*/}
-                            {/*       render={({ input, meta }) => (*/}
-                            {/*           <div className={classes.inputContainer}>*/}
-                            {/*               <div className={classes.inputAlignment}>*/}
-                            {/*                   <label>Quantity:</label>*/}
-                            {/*                   <input type="number" {...input} placeholder="Quantity" />*/}
-                            {/*               </div>*/}
-
-                            {/*           </div>*/}
-                            {/*       )}*/}
-                            {/*/>*/}
                             <button onClick={closeModal}>cancel</button>
                             <button onSubmit={handleSubmit}>submit</button>
                         </form>

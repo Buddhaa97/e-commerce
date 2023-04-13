@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import AddedCart from '../../cart/added-cart';
@@ -11,15 +11,25 @@ const ProductDetail = () => {
     const [items, setItems] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState([]);
+    let total = 0;
 
-    useEffect(() => {
-       fetch(
+    const getData = useCallback(async () => {
+        const fetchedData = await fetch(
             'https://e-commerce-954ba-default-rtdb.asia-southeast1.firebasedatabase.app/fruits.json',
             {
                 method: 'GET',
             }).then(res => {
             return res.json();
-        }).then(data => setData(data));
+        });
+        return fetchedData;
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getData();
+            setData(data)
+        };
+        fetchData();
     }, []);
 
     const arrangeData = data ? Object.entries(data).map(([key, value]) => ({[key]: value})) : [];
@@ -43,7 +53,6 @@ const ProductDetail = () => {
             {
                 method: 'DELETE',
             });
-        console.log('fruits', id)
     }
 
     const updateQuantity = (itemName, sign) => {
@@ -75,7 +84,7 @@ const ProductDetail = () => {
                             <button onClick={() => addToCart(item)}>Add to cart</button>
                             <Link href={{
                                 pathname: '/product/[productId]/review/[reviewId]',
-                                query: {productId: productId, reviewId: item.name}
+                                query: {productId: productId, reviewId: item.id}
                             }}>
                                 <h2>Review detail</h2>
                             </Link>
