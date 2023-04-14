@@ -11,7 +11,6 @@ const ProductDetail = () => {
     const [items, setItems] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState([]);
-    let total = 0;
 
     const getData = useCallback(async () => {
         const fetchedData = await fetch(
@@ -71,6 +70,24 @@ const ProductDetail = () => {
         setIsOpen(true);
     }
 
+    const purchaseProduct = async () => {
+        const response = await fetch(
+            'https://e-commerce-954ba-default-rtdb.asia-southeast1.firebasedatabase.app/shoppingList.json',
+            {
+                method: 'POST',
+                body: JSON.stringify(items),
+            });
+        if (response.ok) {
+            router.reload();
+        } else {
+            alert('something went wrong')
+        }
+    }
+
+    const reloadPage = () => {
+        router.reload();
+    }
+
     return (
         <div className={classes.container}>
             <div className={classes.leftContainer}>
@@ -83,8 +100,8 @@ const ProductDetail = () => {
                             <button onClick={() => DeleteItem(item.id)}>Delete</button>{/*TODO only visible to admin*/}
                             <button onClick={() => addToCart(item)}>Add to cart</button>
                             <Link href={{
-                                pathname: '/product/[productId]/review/[reviewId]',
-                                query: {productId: productId, reviewId: item.id}
+                                pathname: '/product/[productId]/detail/[detailId]',
+                                query: {productId: productId, detailId: item.id}
                             }}>
                                 <h2>Review detail</h2>
                             </Link>
@@ -96,11 +113,11 @@ const ProductDetail = () => {
                 <div className={classes.rightContainer}>
                     <AddedCart items={items} updateQuantity={updateQuantity} remove={removeItem} /><br />
                     <button onClick={() => setItems([])}>cancel</button>
-                    <button>confirm</button>{/*TODO*/}
+                    <button onClick={() => purchaseProduct()}>confirm</button>
                 </div> : <></>
             }
             {isOpen ?
-                <PopUpModal isOpen={isOpen} setIsOpen={setIsOpen}></PopUpModal> :
+                <PopUpModal isOpen={isOpen} setIsOpen={setIsOpen} reload={reloadPage} /> :
                 <></>
             }
         </div>

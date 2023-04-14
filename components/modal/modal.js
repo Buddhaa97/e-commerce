@@ -15,14 +15,7 @@ const customStyles = {
     },
 };
 
-// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-// Modal.setAppElement('#yourAppElement');
-
 const PopUpModal = (props) => {
-    // const afterOpenModal = () => {
-    //     // references are now sync'd and can be accessed.
-    //     subtitle.style.color = '#f00';
-    // }
 
     function closeModal() {
         props.setIsOpen(false);
@@ -41,14 +34,13 @@ const PopUpModal = (props) => {
                 body: JSON.stringify(payload),
             });
         props.setIsOpen(false);
+        props.reload();
     }
 
     return (
         <div>
-            {/*<button onClick={openModal}>Open Modal</button>*/}
             <Modal
                 isOpen={props.isOpen}
-                // onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
                 style={customStyles}
             >
