@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    padding: 16px 8px;
+}
+
+.leftContainer {
+    width: 50%;
+}
+
+.rightContainer {
+    width: 50%;
+}
+
+.titleContainer {
+    display: flex;
+}
