@@ -1,13 +1,13 @@
 const AddedCart = (props) => {
 
-    const total = props.items.map(item => item.price * item.quantity).reduce(
+    const total = props?.items?.map(item => item.price * item.quantity).reduce(
         (accumulator, currentValue) => accumulator + currentValue
     );
 
     return (
         <div>
             <h2>Cart Added</h2>
-            {props.items.map((item, index) => (
+            {props?.items?.map((item, index) => (
                 <div key={index}>
                     <p>Name: {item.name}</p>
                     <p>Price: Nu.{item.price * item.quantity}</p>
