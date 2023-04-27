@@ -5,7 +5,7 @@ import AddedCart from '../../cart/added-cart';
 import classes from './product.module.css';
 import PopUpModal from '../../../components/modal/modal';
 
-const ProductDetail = () => {
+const productList = () => {
     const router = useRouter();
     const {productId} = router.query;
     const [items, setItems] = useState([]);
@@ -91,21 +91,31 @@ const ProductDetail = () => {
     return (
         <div className={classes.container}>
             <div className={classes.leftContainer}>
-                <h1>Details about product {productId}</h1>
+                <h1>List of {productId}</h1>
                 <button onClick={handleModal}>Add more fruits</button>
                 {
                     allData?.length ? allData.map(item => (
-                        <div key={item.name}>
-                            <p>{item.name}</p>
-                            <button onClick={() => DeleteItem(item.id)}>Delete</button>{/*TODO only visible to admin*/}
-                            <button onClick={() => addToCart(item)}>Add to cart</button>
-                            <Link href={{
-                                pathname: '/product/[productId]/detail/[detailId]',
-                                query: {productId: productId, detailId: item.id}
-                            }}>
-                                <h2>Review detail</h2>
-                            </Link>
-                        </div>
+                        <>
+                            <br/>
+                            <div key={item.name}>
+                                <div className={classes.titleContainer}>
+                                    <h3>{item.name}</h3>
+                                    <Link href={{pathname: `/product/detail/${item.name }`, query: {id: item.id}}}>
+                                        <button>Detail</button>
+                                    </Link>
+                                </div>
+                                <br/>
+                                <button onClick={() => DeleteItem(item.id)}>Delete</button>
+                                {/*TODO only visible to admin*/}
+                                <button onClick={() => addToCart(item)}>Add to cart</button>
+                                <Link href={{
+                                    pathname: '/product/[productId]/list/[listId]',
+                                    query: {productId: productId, listId: item.id}
+                                }}>
+                                    <button>Edit</button>
+                                </Link>
+                            </div>
+                        </>
                     )) : <h1>Product not created yet</h1>
                 }
             </div>
@@ -124,4 +134,4 @@ const ProductDetail = () => {
     )
 }
 
-export default ProductDetail;
+export default productList;

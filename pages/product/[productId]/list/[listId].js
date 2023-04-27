@@ -15,10 +15,10 @@ export async function getStaticPaths() {
     });
     const productId = 'fruit';
 
-    const paths = Object.keys(data).map((detailId) => ({
+    const paths = Object.keys(data).map((listId) => ({
         params: {
             productId,
-            detailId
+            listId
         }
     }));
 
@@ -30,10 +30,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const { detailId } = params;
-    // Fetch the product data based on the detailId parameter
+    const { listId } = params;
+    // Fetch the product data based on the listId parameter
     const data =  await fetch(
-        `https://e-commerce-954ba-default-rtdb.asia-southeast1.firebasedatabase.app/fruits/${detailId}.json`,
+        `https://e-commerce-954ba-default-rtdb.asia-southeast1.firebasedatabase.app/fruits/${listId}.json`,
         {
             method: 'GET',
         }).then(res => {
@@ -48,9 +48,9 @@ export async function getStaticProps({ params }) {
     };
 }
 
-const Review = (props) => {
+const EditContent = (props) => {
     const router = useRouter();
-    const { detailId, productId } = router.query;
+    const { listId, productId } = router.query;
     const [edit, setEdit] = useState(false);
 
     const handleOnSubmit = async (values) => {
@@ -60,7 +60,7 @@ const Review = (props) => {
             1,
         );
         await fetch(
-            `https://e-commerce-954ba-default-rtdb.asia-southeast1.firebasedatabase.app/fruits/${detailId}.json`,
+            `https://e-commerce-954ba-default-rtdb.asia-southeast1.firebasedatabase.app/fruits/${listId}.json`,
             {
                 method: 'PUT',
                 body: JSON.stringify(payload),
@@ -70,7 +70,7 @@ const Review = (props) => {
 
     return (
         <>
-            <h2>Detail view of id {detailId} of product Id {productId}</h2>
+            <h2>View of id ({listId}) of product Id {productId}</h2>
             <Form onSubmit={(values) => handleOnSubmit(values)} validate={() => {}}>
                 {({handleSubmit}) => (
                     <>
@@ -106,4 +106,4 @@ const Review = (props) => {
     )
 }
 
-export default Review;
+export default EditContent;
