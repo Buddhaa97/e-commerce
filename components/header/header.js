@@ -7,14 +7,16 @@ export default function Header () {
     return (
         <header className={classes.header}>
             <div>
-                <Image
-                    priority
-                    src="/images/profile.jpg"
-                    className={utilStyles.borderCircle}
-                    height={50}
-                    width={50}
-                    alt=""
-                />
+                <Link href="/">
+                    <Image
+                        priority
+                        src="/images/logo.jpg"
+                        className={utilStyles.borderCircle}
+                        height={50}
+                        width={50}
+                        alt=""
+                    />
+                </Link>
             </div>
            <div className={classes.linkHeader}>
                <Link href="/">

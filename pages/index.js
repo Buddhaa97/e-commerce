@@ -9,7 +9,7 @@ export default function Home ({allPostsData}) {
         <div className={styles.header}>
             <Image
                 priority
-                src="/images/profile.jpg"
+                src="/images/logo.jpg"
                 className={utilStyles.borderCircle}
                 height={144}
                 width={144}
